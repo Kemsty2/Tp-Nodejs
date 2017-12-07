@@ -1,0 +1,86 @@
+<!Doctype html>
+<html lang="fr">
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+        <title>TODO LIST</title>
+        
+        <style type="text/css">
+            th{
+                border:1px solid black;
+                margin:1px;
+                background-color: gray;
+                color:white;
+                width: 500px;
+            }
+            table{
+                border:3px outset black;
+                margin: auto;
+                text-align: center;
+                margin-top: 40px;
+            }
+            #todo{
+                margin:auto;
+                width: 400px;
+                height: 200px;
+                border:1px solid black;
+            }
+            caption{
+                color:red;
+            }
+            input{
+                margin-bottom: 10px;
+                margin-left: 10px;
+                margin-top: 20px;
+            }
+            label{
+                margin-bottom: 10px;
+                margin-left: 10px;
+            }
+            input[type='button']{
+                margin-left: 70px;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <form id="todo">
+                <label for="nom">Nom:</label>
+                <input type="text" id="nom" name="nom"/><br />
+                <label for="date">Date:</label>
+                <input type="text" id="date" name="date"  /><br />
+                <input type="button" value="Ajouter" onClick="ajouter(this.form);" />
+            </form>
+        </div>
+            
+        <div>
+            <table >
+                <caption>TODO List</caption>
+                <thead>
+                    <th>Nom</th>
+                    <th>Date</th>
+                </thead>
+                <tbody id="todoList">
+                    <tr>
+                        <td>Acheter du pain</td>
+                        <td>14/06/14</td>
+                    </tr>                    
+                </tbody>
+            </table>
+        </div>        
+        
+        <script type="text/javascript" src="todo.js"></script>                
+                
+        <script>            
+            ToDo.prototype.afficher = function(){
+                document.getElementById('todoList').innerHTML += "<tr><td>" + this.name + "</td><td>" + this.date + "</td></tr>";
+            };
+                    
+            function ajouter(form){                
+                var result = new ToDo(form.nom.value, form.date.value);                 
+                result.afficher();
+                form.reset();
+                document.getElementById("nom").focus();
+            }
+        </script>
+    </body>
+</html>

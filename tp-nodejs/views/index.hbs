@@ -1,0 +1,41 @@
+<section class="section pb-3 container-fluid" style="padding-top: 40px;">   
+    <div class="alert alert-success" id= "success-alert" style="width: 200px;" {{# if noMessages}} hidden{{/if}}>
+        {{successMsg}}
+    </div>            
+    <h1 class="section-heading h1 pt-4">Site de Vente de Projet Arduino en Ligne</h1>                
+    <p class="section-description"> Bonjour, dans le but d'acquerir des fonds pour notre club informatique, nous avons decidé de vendre certains de nos projets électronique.</p>                         
+        
+    <div class="row">
+        {{# each produits }}
+        <div class="col-lg-3 col-md-6 mb-r">                        
+            <div class="card card-cascade narrower" style="height:400px;">                            
+                <div class="view overlay hm-white-slight">
+                    <img src="{{ this.imagePath }}" class="img-fluid" alt="">
+                    <a>
+                        <div class="mask"></div>
+                    </a>
+                </div>
+                 <div class="card-body text-center no-padding">                                
+                    <a href="" class="text-muted"><h5>{{ this.typeProduit}}</h5></a>
+                    <h4 class="card-title"><strong><a href="">{{ this.nom}}</a></strong></h4>                                                                                           
+                    <p class="card-text">
+                        {{ this.description}}
+                    </p>  
+                                
+                    <div class="card-footer">
+                        <span class="left">{{ this.prix }} FCFA</span>
+                        <span class="right">
+                            <a data-toggle="tooltip" data-placement="top" title="Ajouter au Panier" href="/add-to-cart/{{this._id}}"><i class="fa fa-shopping-cart fa-2x"></i></a>                                                                      
+                        </span>
+                    </div>
+                </div>                            
+            </div>                            
+        </div>
+        {{/each}}
+    </div>    
+</section>
+<script type="text/javascript">
+    $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+    $("#success-alert").slideUp(500);
+});
+</script>

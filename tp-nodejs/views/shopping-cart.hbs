@@ -1,0 +1,89 @@
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script>
+        paypal.Button.render({
+
+            env: 'sandbox', // sandbox | production
+
+            // PayPal Client IDs - replace with your own
+            // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+            client: {
+                sandbox:    'AZMgKtYEfePp339pwSDMA54z8WAe1lMgJCjaqhJBXQq-gPl6vPjmSGajK25B6kpqz-KXWgh-I_7n-q2y'                
+            },
+
+            // Show the buyer a 'Pay Now' button in the checkout flow
+            commit: true,
+
+            // payment() is called when the button is clicked
+            payment: function(data, actions) {
+
+                // Make a call to the REST api to create the payment
+                return actions.payment.create({
+                    payment: {
+                        transactions: [
+                            {
+                                amount: { total: '{{ totalPrice }}', currency: 'USD' }
+                            }
+                        ]
+                    }
+                });
+            },
+
+            // onAuthorize() is called when the buyer approves the payment
+            onAuthorize: function(data, actions) {
+
+                // Make a call to the REST api to execute the payment
+                return actions.payment.execute().then(function() {
+                    document.getElementById('test').submit();
+                });
+            }
+
+        }, '#paypal-button-container');
+
+    </script>
+
+<div class="marge">       
+{{# if produits}}
+<div class="row">
+<div class="col-6" style="margin-top:150px;margin-bottom:300px;" >
+    <form method="post" action="/check" id="test">
+        <input type="hidden" name="test" /> 
+    </form>
+    <div>
+        <h3> Listes des Achats</h3>
+        <ul class="list-group">
+            {{# each produits}}
+            <li class="list-group-item d-flex justify-content-start">                
+                <strong>{{ this.item.nom }}</strong>
+                <span class="badge cyan  ">
+                    {{ this.prix }} Fcfa
+                </span>                
+                <span class="badge badge-pill aqua-gradient ml-auto">{{ this.qty}}</span>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+    <div class="list-group">
+        <strong class="list-group-item">Total: {{ totalPrice}} Fcfa</strong>
+    </div>
+    <hr class="col-12"/>
+    <div>
+        <div id="paypal-button-container"></div>
+    </div>
+</div>
+    <div class="col-6" style="margin-top:160px;" >
+        
+        <blockquote class="blockquote bq-primary blue lighten-5">
+            <p class="bq-title">Effectuer Le Paiement de vos Achats</p>
+            <p>Dans cette section vous pouvez cliquer sur <kbd>Payer</kbd>, Puis Choisir votre style de paiement</p>
+        </blockquote>
+
+    </div>
+</div>
+{{ else }}
+<div class="row" style="margin:auto;margin-left:450px;margin-top:10px;">
+    <div>
+        <h2>Aucun Achat Effectué</h2> 
+    </div>
+</div>
+{{/if}}
+</div>

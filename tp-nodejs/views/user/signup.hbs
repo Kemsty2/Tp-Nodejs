@@ -1,0 +1,45 @@
+
+<section class="form-elegant col-md-4">
+    <form method="post" action="/user/signup">
+        <!--<input name="_csrf" id="_csrf" type="hidden" value="{{ csrfToken}}" />-->
+        <div class="card">
+
+            <div class="card-body mx-4">
+
+                <!--Header-->
+                <div class="text-center">
+                    <h3 class="dark-grey-text mb-5"><strong>Register</strong></h3>
+                </div>
+                {{#if hasErrors}}
+                    <div class="alert alert-danger">
+                    {{# each messages}}
+                        <p>{{this}}</p>
+                    {{/each}}
+                </div>
+                {{/if}}
+                <!--Body-->
+                <div class="md-form">
+                    <input type="text" name="email" id="email" class="form-control">
+                    <label for="email">Email</label>
+                </div>
+
+                <div class="md-form pb-3">
+                    <input type="password" id="password" name="password" class="form-control">
+                    <label for="password">Password</label>
+                    <p class="font-small blue-text d-flex justify-content-end"><a href="#" class="blue-text ml-1">Mot de passe oublié?</a></p>
+                </div>
+
+                <div class="text-center mb-3">
+                    <input type="submit" class="btn elegant-color-dark btn-block btn-rounded z-depth-1a" value = "Connexion"/>
+                </div>                           
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer mx-5 pt-3 mb-1">                
+                <p class="font-small grey-text d-flex justify-content-end">Pas Inscrit? <a href="#" class="blue-text ml-1"> Sign Up</a></p>
+            </div>
+
+        </div>          
+    </form>
+</section>
+            
